@@ -1,0 +1,32 @@
+<div class="add-to-cart-section">
+  <div class="search">
+    <input class="search-products" type="text" name="search" placeholder="Search a product" (keyup)="mySearch($event)">
+
+    <h1 *ngIf="filterProducts.length === 0 ">No users Found </h1>
+    <!-- <h1 *ngIf="filterProducts.length == 0" class="no-users">No users Found</h1> -->
+
+  </div>
+
+  
+</div>
+
+<div class="users">
+  <div class="user-details" *ngFor="let prod of filterProducts">
+    <p>{{prod.id}}</p>
+    <img src="{{prod.image}}" height="100px; width:100px">
+    <p class="title" title="{{prod.title}}">{{prod.title}}</p>
+    <p>{{prod.category }}</p>
+    <p class="description" title="{{prod.description}}">{{prod.description}}</p>
+    <p><b> Price=${{prod.price}}</b></p>
+    <p>Rating <button class="btn btn-warning">{{prod.rating.rate}}{{prod.rating.count}}</button>Rated
+      <b>{{prod.rating.count}}</b>
+    </p>
+    <button type="button" class="btn btn-primary">BuyNow</button>
+    <button type="button" class="btn btn-success">AddtoCart</button>
+  </div>
+  <!-- <div *ngIf="IsLoadtrue == true" class="spinner-border text-danger center" role="status">
+        <span class="sr-only"></span>
+    </div> -->
+</div>
+
+

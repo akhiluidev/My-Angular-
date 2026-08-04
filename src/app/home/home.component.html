@@ -1,0 +1,30 @@
+<button class="button" mat-button (click)="openDialog()">Open dialog</button>
+
+
+
+
+<div class="login-page ">
+    <label>
+        Username: </label>
+    <input type="text" />
+
+
+    <label>
+        Password:</label>
+        
+    <input [type]="password" />
+    <button class="eye-icon" (click)="oneyeClick()">
+        <i class="bi bi-eye " aria-hidden="true" *ngIf="!visible"></i>
+        <i class="bi bi-eye-slash " aria-hidden="true" *ngIf="visible"></i>
+    </button>
+
+</div> 
+
+<div class="">
+    <label for="password">Paswword</label>
+    <input type="password">
+</div> 
+
+
+
+

@@ -1,0 +1,40 @@
+.container-fluid {
+    position: sticky;
+    top: 0;
+}
+
+.nav-link {
+    color: purple;
+}
+
+.container-fluid {
+    --bs-gutter-x: 0;
+    --bs-gutter-y: 0;
+}
+
+.navbar-brand {
+    color: purple;
+    font-weight: bold;
+    padding-left: 22px;
+}
+
+.nav-points {
+    padding-right: 5rem;
+}
+
+.cart-image {
+    height: 50px;
+    border-radius: 15px;
+    ;
+    width: 40px;
+    cursor: pointer;
+}
+
+.active {
+    font-size: 19px;
+}
+
+.chatbot-section {
+    position: relative;
+}
+

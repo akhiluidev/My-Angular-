@@ -1,0 +1,14 @@
+.close-button{
+
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-size: 20px;
+    background-color: transparent;
+    border: 1px solid transparent;
+    }
+
+    .dialog-ref{
+        display: flex;
+        justify-content: space-betweenW;
+    }

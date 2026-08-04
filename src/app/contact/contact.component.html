@@ -1,0 +1,21 @@
+<p>contact works!</p>
+
+
+
+<!-- <button (click)="loadData()">Load Data</button> -->
+<div >
+    <ul>
+        <li *ngFor="let user of mydata">
+            <!-- <strong>{{ user.id }}</strong> -->
+            <strong>{{ user.firstName }}</strong>
+
+        </li>
+    </ul>
+</div>
+
+<div>
+    <button class="btn- btn-primary" (click)="todayDate()">Today</button>
+    {{today}}
+</div>
+
+

@@ -1,0 +1,9 @@
+.full-width {
+    width:160px;
+    max-width: 400px;
+    margin: 20px auto;
+    display: block;
+  }
+  .image-flag{
+    height: 15px;
+  }

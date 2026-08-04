@@ -1,0 +1,14 @@
+<mat-form-field appearance="outline" class="full-width">
+    <mat-label>Select Country</mat-label>
+    <mat-select [(value)]="selectedCountry">
+        <mat-option *ngFor="let country of countries">
+            <div class="d-flex gap-4">
+                <img class="image-flag" src="{{country.flags.svg}}" alt="flag">
+                <p> +{{ country. callingCodes }}</p>
+            </div>
+        </mat-option>
+    </mat-select>
+</mat-form-field>
+
+<p *ngIf="selectedCountry">You selected: {{ selectedCountry }}</p>
+

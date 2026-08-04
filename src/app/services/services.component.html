@@ -1,0 +1,243 @@
+<div class="head-bar">
+    <div>
+        <svg c xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+            class="bi bi-search search-icon  " viewBox="0 0 16 16">
+            <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+        </svg>
+        <input class="search-bar" type="text" placeholder="Search a User" (keyup)="filter()" [(ngModel)]="filterBy">
+        <!-- (keyup)="mySearch($event)" (keyup)="filter() [(ngModel)]="filterBy" -->
+    </div>
+
+    <div class="btn-add">
+        <button class="btn btn-info" data-bs-target="#exampleModalToggleAddform" data-bs-toggle="modal">+
+            AddForm</button>
+    </div>
+</div>
+
+<div>
+    <table>
+        <thead>
+            <div *ngIf="IsLoad == true" class="spinner-border text-danger rounder-center" role="status">
+                <span class="sr-only"></span>
+            </div>
+            <tr *ngIf="filteredUsers.length >  0">
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Age</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <div class="no-data  pt-4" *ngIf="filteredUsers.length == 0 && !IsLoad ">
+            <h1>There is No Data Available</h1>
+        </div>
+
+        <ng-container>
+            <tbody class="w-100">
+                <tr *ngFor=" let user of filteredUsers">
+                    <td>{{user.id}}</td>
+                    <td>{{user.firstName}}</td>
+                    <td>{{user.lastName}}</td>
+                    <td>{{user.age}}</td>
+                    <td>{{user.gender}}</td>
+                    <td>{{user.email}}</td>
+                    <td>{{user.phone}}</td>
+                    <td>{{user.actions}}</td>
+
+                    <button class=" btn btn-warning" data-bs-toggle="modal" data-bs-target="#myModalview">View
+                        User</button>
+
+                    <button class="btn btn-warning m-3" (click)="editUser(user)" data-bs-target="#exampleModalToggle"
+                        data-bs-toggle="modal">Edit
+                        User</button>
+
+                    <button class="btn btn-danger " (click)="deleteUser(user.id) ">Delete</button>
+            </tbody>
+        </ng-container>
+    </table>
+
+    <!-- Addform -->
+    <div class="modal fade" id="exampleModalToggleAddform" data-bs-backdrop="static" data-bs-keyboard="false"
+        tabindex="-1" aria-labelledby="staticBackdropLabel">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Add Form</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form [formGroup]="userForm">
+
+                        <div class="field">
+                            <label class="blue">First Name :</label>
+                            <input class="form-input" type="text" formControlName="firstName">
+                            <small *ngIf="userForm.get('firstName')?.invalid && userForm.get('firstName')?.touched">
+                                <div class="d-flex flex-col">
+                                    <span class="error" *ngIf="userForm.get('firstName')?.hasError('required')">*First
+                                        Name is required</span>
+                                    <span *ngIf="userForm.get('firstName')?.hasError('minlength')">*Minimum 3 characters
+                                        required</span>
+                                </div>
+                            </small>
+                        </div>
+                        <div class="field">
+                            <label class="blue">Last Name :</label>
+                            <input class="form-input" type="text" formControlName="lastName">
+                            <small *ngIf="userForm.get('lastName')?.invalid && userForm.get('lastName')?.touched">
+                                <div class="d-flex flex-col">
+                                    <span class="error" *ngIf="userForm.get('lastName')?.hasError('required')">*Last
+                                        Name is required</span>
+                                    <span *ngIf="userForm.get('lastName')?.hasError('minlength')">Minimum 3 characters
+                                        required</span>
+                                </div>
+
+                            </small>
+                        </div>
+
+                        <div class="field">
+                            <label class="blue">Age :</label>
+                            <input class="form-input" type="number" formControlName="age">
+                            <small *ngIf="userForm.get('age')?.invalid && userForm.get('age')?.touched">
+                                <div class="d-flex flex-col">
+                                    <span class="error" *ngIf="userForm.get('age')?.hasError('required')">*Age is
+                                        required</span>
+                                    <span class="error" *ngIf="userForm.get('age')?.hasError('min')">Minimum age is
+                                        18</span>
+                                    <span class="error" *ngIf="userForm.get('age')?.hasError('max')">Maximum age is
+                                        60</span>
+                                </div>
+                            </small>
+                        </div>
+
+                        <div class="field d-flex">
+                            <label class="blue">Phone Number :</label>
+                            <div class="d-flex">
+
+                                <select class="form-inp" formControlName="gender">
+                                    <div class="d-flex" *ngFor="let country of countries">
+                                        <option value="+{{ country. callingCodes }}">+{{ country. callingCodes }}
+                                        </option>
+                                        <!-- <option value="Female"></option> -->
+                                        <option value="{{country.flags.svg}}">
+                                            <img src="{{country.flags.svg}}" alt="flag">
+                                        </option>
+                                    </div>
+                                </select>
+
+                                <input type="number" class="form-input-phone" formControlName="number">
+                            </div>
+                            <small *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+                                <div class="d-flex flex-col">
+                                    <span class="error" *ngIf="userForm.get('email')?.hasError('required')">*PhoneNUmber
+                                        is
+                                        required</span>
+                                </div>
+
+                            </small>
+                        </div>
+
+
+                        <div class="field">
+
+                            <div class="d-flex">
+                                <label class="blue">Gender :</label>
+                                <select class="form-select" formControlName="gender">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Others">Others</option>
+                                </select>
+
+                            </div>
+
+                            <small class="error"
+                                *ngIf="userForm.get('gender')?.invalid && userForm.get('gender')?.touched">
+                                *Gender is required
+                            </small>
+                        </div>
+
+                        <div class="field">
+                            <label class="blue">Email :</label>
+                            <input type="email" class="form-input" formControlName="email">
+                            <small *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched">
+                                <div class="d-flex flex-col">
+                                    <span class="error" *ngIf="userForm.get('email')?.hasError('required')">*Email is
+                                        required</span>
+                                    <span *ngIf="userForm.get('email')?.hasError('email')">*Enter a valid email</span>
+                                </div>
+
+                            </small>
+                        </div>
+
+                        
+                        <!-- <button type="submit" >Submit</button> -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                                (click)="addUser()">AddUser</button>
+                        </div>
+                    </form>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- edit user -->
+    <div class="modal fade" id="exampleModalToggle" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Edit User</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form [formGroup]="editUserForm">
+
+                        <div>
+                            <label for="name  ">ID</label>
+                            <input type="text" formControlName="id">
+
+                        </div>
+                        <div>
+                            <label for="name ">FirstName</label>
+                            <input type="text" formControlName="firstName">
+                        </div>
+                        <div>
+                            <label for="name ">LastName</label>
+                            <input type="text" formControlName="lastName">
+                        </div>
+                        <div>
+                            <label for="name ">Age</label>
+                            <input type="text" formControlName="age">
+                        </div>
+                        <div>
+                            <label for="name ">Gender <span class="star-red">*</span></label>
+                            <input type="text" formControlName="gender">
+                        </div>
+                        <div>
+                            <label for="name ">email</label>
+                            <input type="text" formControlName="email">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        (click)="updateUser(user)">Update</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+</div>
