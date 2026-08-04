@@ -3,19 +3,41 @@
 
 
 <!-- <button (click)="loadData()">Load Data</button> -->
-<div >
+<!-- <div >
     <ul>
         <li *ngFor="let user of mydata">
-            <!-- <strong>{{ user.id }}</strong> -->
+            <strong>{{ user.id }}</strong>
             <strong>{{ user.firstName }}</strong>
 
         </li>
     </ul>
-</div>
-
+</div> -->
+<!-- 
 <div>
     <button class="btn- btn-primary" (click)="todayDate()">Today</button>
     {{today}}
-</div>
+</div> -->
 
 
+<table border="1" class="table-11" cellpadding="8">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Salary</th>
+      <th>Date of Joining</th>
+      <th>Department</th>
+    </tr>
+  </thead>
+
+<tr *ngFor="let emp of employes">
+<td>{{emp.id }}</td>
+<td>{{emp.name | titlecase}}</td>
+<td>{{emp.salary| currency:'INR':'symbol':'1.0-0' }}</td>
+<td>{{emp.doj | date:'dd-MM-yyyy'}}</td>
+<td>{{emp.department | uppercase}}</td>
+
+
+</tr>
+
+  </table>

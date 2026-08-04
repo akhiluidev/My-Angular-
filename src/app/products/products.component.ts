@@ -29,7 +29,6 @@ export class ProductsComponent {
     )
 
   }
-
   mySearch(event: any) {
     const searchValue = event.target.value.toLowerCase();
     console.log(searchValue)
